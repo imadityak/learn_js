@@ -1,38 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Rock Paper Scissor</title>
-  </head>
-  <body>
-    <p>Rock Paper Scissors</p>
-    <button onclick="
-    playGame('rock');
-    ">Rock</button>
-
-
-    <button onclick="
-    playGame('paper');
-    ">Paper</button>  
-
-
-    <button onclick="
-    playGame('scissor');
-    ">Scissor</button>
-
-    <p class="js-result"></p>
-    <p class="js-moves"></p>
-    <p class="js-score"></p>
-
-    <button onclick="
-    score.loses = 0;
-    score.ties = 0;
-    score.wins = 0;
-    localStorage.removeItem('score');
-    updateScoreElement();
-    ">Reset Score</button>
-    <!-- js  -->
-    <script>
-      let score = JSON.parse(localStorage.getItem('score')) || {
+let score = JSON.parse(localStorage.getItem('score')) || {
           loses: 0,
           wins: 0,
           ties: 0
@@ -43,7 +9,7 @@
       function playGame(playerMove){
         const computerMove = pickComputerMove();
         let result = '';
-        if(playerMove === 'scissor'){
+        if(playerMove === 'scissors'){
           if(computerMove === 'rock'){
             result = 'You Lose.';
           }else if(computerMove === 'paper'){
@@ -78,7 +44,10 @@
         }
         localStorage.setItem('score', JSON.stringify(score));
         document.querySelector('.js-result').innerHTML = result; 
-        document.querySelector('.js-moves').innerHTML = `You picked ${playerMove}. Computer picked ${computerMove}. ${result}`;
+        document.querySelector('.js-moves').innerHTML = `You
+          <img src="images/${playerMove}-emoji.png" class="move-icon">
+          <img src="images/${computerMove}-emoji.png" class="move-icon">
+          Computer`;
         updateScoreElement();
       }
 
@@ -94,10 +63,7 @@
         } else if(randomNumber >= 1/3 && randomNumber<2/3){
           computerMove = 'paper';
         } else if(randomNumber >= 2/4 && randomNumber <1){
-        computerMove = 'scissor';
+        computerMove = 'scissors';
         }
         return computerMove;
       }
-    </script>
-  </body>
-</html>
